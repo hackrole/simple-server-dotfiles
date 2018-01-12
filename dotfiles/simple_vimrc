@@ -1,0 +1,66 @@
+set nocompatible
+filetype plugin on
+filetype on
+filetype indent on
+syntax on
+syntax enable
+
+set pumheight=8
+set ruler
+set number
+set linespace=2
+set cursorline
+set scrolloff=5
+set cmdheight=1
+set ofu=syntaxcomplete#Complete
+set backspace=indent,eol,start
+
+set expandtab
+
+set nofoldenable
+set foldmethod=marker
+
+set ignorecase smartcase
+set hlsearch
+
+" session与info配置
+
+set wrap
+set autoindent
+set smartindent
+set tabstop=4
+set winaltkeys=no
+set shiftwidth=4
+set softtabstop=4
+set list
+set listchars=tab:\|\-,nbsp:%,trail:-
+set fileformats=unix,dos
+
+set complete+=k
+set completeopt=longest,menu
+
+set fileencoding=utf-8,ucs-bom,gbk,cp936,cp950,latin1
+set fileencoding=utf-8
+set termencoding=utf-8
+
+set history=50
+
+
+" --------------------------------------------------
+" [参考线切换] {{{
+" --------------------------------------------------
+function! ReferenceLine(t)
+    let ccnum = &cc
+    if ccnum == '' | let ccnum = 0 | en
+    let csw = &sw
+    if a:t == 'add'
+        let ccnum = ccnum + csw
+        exec "setl cc=".ccnum
+    elseif a:t == 'sub'
+        let ccnum = ccnum - csw
+        if ccnum >= 0 | exec "setl cc=".ccnum | en
+    endif
+endfunction
+nnoremap <silent> <A-u> :call ReferenceLine('sub')<CR>
+nnoremap <silent> <A-o> :call ReferenceLine('add')<CR>
+" }}}
